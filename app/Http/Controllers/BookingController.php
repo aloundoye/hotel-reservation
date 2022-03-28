@@ -16,7 +16,7 @@ class BookingController extends Controller
     public function index()
     {
         $bookings= DB::table('bookings')->get();
-        return('bookings.index')
+        return view('bookings.index')
             ->with('bookings', $bookings);
     }
 
