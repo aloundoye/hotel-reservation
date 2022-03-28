@@ -27,7 +27,12 @@ class BookingController extends Controller
      */
     public function create()
     {
-        //
+        $users = DB::table('users')->get()->pluck('name', 'id')->prepend('none');
+        $rooms = DB::table('rooms')->get()->pluck('number', 'id');
+
+         return view('bookings.create')
+            ->with('users', $users)
+            ->with('rooms', $rooms);
     }
 
     /**
@@ -38,7 +43,22 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $id = DB::table('bookings')->insertGetId([
+            'room_id' => $request->input('room_id'),
+            'start'=>$request->input('start'),
+            'end'=>$request->input('end'),
+            'is_reservation'=>$request->input('is_reservation', false),
+            'is_paid'=>$request->input('is_paid', false),
+            'notes'=> $request->input('notes', false)
+        ]);
+
+        DB::table('bookings_users')->insert([
+            'booking_id' => $id,
+            'user_id' => $request->input('user_id')
+        ]);
+
+        return redirect()->action('BookingController@index');
+
     }
 
     /**
