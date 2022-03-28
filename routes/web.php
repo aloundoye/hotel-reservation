@@ -23,4 +23,7 @@ Route::get('/test', function () {
 });
 
 Route::get('/rooms', 'ShowRoomsController');
+Route::resource('bookings', 'BookingController');
+
+
 
