@@ -29,7 +29,6 @@ class BookingController extends Controller
     {
         $users = DB::table('users')->get()->pluck('name', 'id')->prepend('none');
         $rooms = DB::table('rooms')->get()->pluck('number', 'id');
-
          return view('bookings.create')
             ->with('users', $users)
             ->with('rooms', $rooms);
@@ -128,6 +127,9 @@ class BookingController extends Controller
      */
     public function destroy(Booking $booking)
     {
-        //
+        DB::table('bookings_users')->where('booking_id', $booking->id)->delete();
+        DB::table('bookings')->where('id', $booking->id)->delete();
+
+        return redirect()->action('BookingController@index');
     }
 }
