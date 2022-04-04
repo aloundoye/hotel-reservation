@@ -42,7 +42,7 @@
     <div class="col-sm-2">Paid Options</div>
     <div class="col-sm-10">
         <div class="form-check">
-            <input name="is_paid" type="checkbox" class="form-check-input" value="1" {{(isset($booking) && $booking->is_paid) ? 'checked' : ''}}/>
+            <input name="is_paid" type="checkbox" class="form-check-input" value="1" {{$booking->is_paid ? 'checked' : ''}}/>
             <label class="form-check-label" for="start">Pre-Paid</label>
             <small class="form-text text-muted">If the booking is being pre-paid.</small>
         </div>
